@@ -1,0 +1,61 @@
+div.code_cell {
+    padding: 0;
+    border: 0;
+}
+
+div.output_area .rendered_html img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+div.output_area .rendered_html table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.output_png img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.rendered_html code, kbd, pre, samp, p, h1, h2, h3, h4, h5, h6, li, span  {
+    color: #434447;
+    /*color: red;*/
+}
+.rendered_html code, kbd, pre, samp {
+    font-family: "Courier New";
+    font-size: 13px;
+    background-color: #ffffff;
+    border: 0;
+}
+
+.rendered_html p, li {
+    font-family: "Georgia";
+    font-size: 13px;
+    text-align: justify;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.rendered_html h1 {
+    font-size: 34px;
+}
+
+.rendered_html h2 {
+    font-size: 30px;
+}
+
+.rendered_html h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Proxima Nova", 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#signature p {
+    font-size: 14px;
+    font-family: "Proxima Nova", 'Helvetica Neue', Helvetica, Arial, sans-serif;   
+}
+
+.email {
+    color: #003580;
+}
