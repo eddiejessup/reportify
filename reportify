@@ -12,8 +12,8 @@ from nbconvert import HTMLExporter
 parser = argparse.ArgumentParser(
     description='Reportify: Jupyter notebook to report-formatted HTML. '
                 'Optimized for pasting into a Google doc')
-parser.add_argument('in-file-path', help='Path to Jupyter notebook')
-parser.add_argument('-pm', '--with-pymarkdown', default=False,
+parser.add_argument('in_file_path', help='Path to Jupyter notebook')
+parser.add_argument('-pm', '--with_pymarkdown', default=False,
                     action='store_true',
                     help='Enable PyMarkdown processing')
 args = parser.parse_args()
