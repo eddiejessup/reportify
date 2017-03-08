@@ -1,20 +1,37 @@
 #! /usr/bin/env python
 
-import sys
 from os.path import splitext, extsep, dirname, abspath, basename
+import argparse
+from codecs import open
 
 from traitlets.config import Config
 import nbformat
 from nbconvert import HTMLExporter
 
-from jupyter_contrib_nbextensions.nbconvert_support import pre_pymarkdown
+
+parser = argparse.ArgumentParser(
+    description='Reportify: Jupyter notebook to report-formatted HTML. '
+                'Optimized for pasting into a Google doc')
+parser.add_argument('in-file-path', help='Path to Jupyter notebook')
+parser.add_argument('-pm', '--with-pymarkdown', default=False,
+                    action='store_true',
+                    help='Enable PyMarkdown processing')
+args = parser.parse_args()
 
 
 this_file_dir_path = dirname(abspath(__file__))
 
 c = Config()
-# Add preprocessor to do markdown-python rendering.
-c.HTMLExporter.preprocessors.append(pre_pymarkdown.PyMarkdownPreprocessor)
+
+if args.with_pymarkdown:
+    try:
+        # Add preprocessor to do markdown-python rendering.
+        from jupyter_contrib_nbextensions.nbconvert_support import pre_pymarkdown
+    except ImportError:
+        print('Cannot enable PyMarkdown support as it is not installed')
+    else:
+        c.HTMLExporter.preprocessors.append(pre_pymarkdown.PyMarkdownPreprocessor)
+
 # Template lives next to this build file, so add that to search path.
 c.HTMLExporter.template_path.append(this_file_dir_path)
 # Tell it to use our custom HTML template.
@@ -23,20 +40,18 @@ c.HTMLExporter.template_file = 'no_code'
 html_exporter = HTMLExporter(config=c)
 
 # Get notebook path, and filename
-file_path = sys.argv[1]
-file_name = basename(file_path)
+file_name = basename(args.in_file_path)
 
 # Make output file name
 out_file_name = '{}{}html'.format(splitext(file_name)[0], extsep)
 
 # Read the notebook.
-nb = nbformat.read(file_path, as_version=nbformat.NO_CONVERT)
+nb = nbformat.read(args.in_file_path, as_version=nbformat.NO_CONVERT)
 # It will look in a path for a 'custom' directory containing custom CSS.
 # Tell it to look in this build file's path.
 resources = {'config_dir': this_file_dir_path}
 # Render the notebook. The resources, we will not use.
 body, resources = html_exporter.from_notebook_node(nb, resources=resources)
 
-# TODO: Make this more nicely compatible with python 2 and 3, this is hacky,
-# and I'm not even sure it's truly compatible.
-open(out_file_name, 'wb').write(body.encode('utf-8'))
+with open(out_file_name, encoding='utf-8', mode='w') as f:
+    f.write(body)
