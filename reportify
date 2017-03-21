@@ -16,6 +16,9 @@ parser.add_argument('in_file_path', help='Path to Jupyter notebook')
 parser.add_argument('-pm', '--with_pymarkdown', default=False,
                     action='store_true',
                     help='Enable PyMarkdown processing')
+parser.add_argument('-e', '--embed_html', default=True,
+                    action='store_false',
+                    help='Enable HTML image embedding')
 args = parser.parse_args()
 
 
@@ -32,12 +35,18 @@ if args.with_pymarkdown:
     else:
         c.HTMLExporter.preprocessors.append(pre_pymarkdown.PyMarkdownPreprocessor)
 
+if args.embed_html:
+    from embed_html import EmbedHTMLExporter
+    Exporter = EmbedHTMLExporter
+else:
+    Exporter = HTMLExporter
+
 # Template lives next to this build file, so add that to search path.
 c.HTMLExporter.template_path.append(this_file_dir_path)
 # Tell it to use our custom HTML template.
 c.HTMLExporter.template_file = 'no_code'
 
-html_exporter = HTMLExporter(config=c)
+exporter = Exporter(config=c)
 
 # Get notebook path, and filename
 file_name = basename(args.in_file_path)
@@ -51,7 +60,7 @@ nb = nbformat.read(args.in_file_path, as_version=nbformat.NO_CONVERT)
 # Tell it to look in this build file's path.
 resources = {'config_dir': this_file_dir_path}
 # Render the notebook. The resources, we will not use.
-body, resources = html_exporter.from_notebook_node(nb, resources=resources)
+body, resources = exporter.from_notebook_node(nb, resources=resources)
 
 with open(out_file_name, encoding='utf-8', mode='w') as f:
     f.write(body)
