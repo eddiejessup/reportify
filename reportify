@@ -2,7 +2,6 @@
 
 from os.path import splitext, extsep, dirname, abspath, basename
 import argparse
-from codecs import open
 
 from traitlets.config import Config
 import nbformat
@@ -61,6 +60,5 @@ nb = nbformat.read(args.in_file_path, as_version=nbformat.NO_CONVERT)
 resources = {'config_dir': this_file_dir_path}
 # Render the notebook. The resources, we will not use.
 body, resources = exporter.from_notebook_node(nb, resources=resources)
-
-with open(out_file_name, encoding='utf-8', mode='w') as f:
+with open(out_file_name, mode='wb') as f:
     f.write(body)
