@@ -11,13 +11,14 @@ from nbconvert import HTMLExporter
 parser = argparse.ArgumentParser(
     description='Reportify: Jupyter notebook to report-formatted HTML. '
                 'Optimized for pasting into a Google doc')
-parser.add_argument('in_file_path', help='Path to Jupyter notebook')
-parser.add_argument('-pm', '--with_pymarkdown', default=False,
+parser.add_argument('in_file_path', metavar='in-file-path',
+                    help='Path to Jupyter notebook')
+parser.add_argument('-pm', '--with-pymarkdown', default=False,
                     action='store_true',
                     help='Enable PyMarkdown processing')
-parser.add_argument('-e', '--embed_html', default=True,
-                    action='store_false',
-                    help='Enable HTML image embedding')
+parser.add_argument('--no-embed-images', default=False,
+                    action='store_true',
+                    help='Disable HTML image embedding')
 args = parser.parse_args()
 
 
@@ -34,7 +35,7 @@ if args.with_pymarkdown:
     else:
         c.HTMLExporter.preprocessors.append(pre_pymarkdown.PyMarkdownPreprocessor)
 
-if args.embed_html:
+if not args.no_embed_images:
     from embed_html import EmbedHTMLExporter
     Exporter = EmbedHTMLExporter
 else:
