@@ -12,7 +12,6 @@ except ImportError:
     from urllib2 import urlopen
 
 from nbconvert.exporters.html import HTMLExporter
-
 from bs4 import BeautifulSoup
 
 
