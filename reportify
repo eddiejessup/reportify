@@ -34,6 +34,8 @@ if args.with_pymarkdown:
         print('Cannot enable PyMarkdown support as it is not installed')
     else:
         c.HTMLExporter.preprocessors.append(pre_pymarkdown.PyMarkdownPreprocessor)
+else:
+    print('Not using PyMarkdown')
 
 if not args.no_embed_images:
     from embed_html import EmbedHTMLExporter
