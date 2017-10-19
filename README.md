@@ -1,7 +1,5 @@
 # Reportify
 
-Introduction TODO
-
 ## Installation
 
 Assuming you have pip installed, you can run
@@ -22,8 +20,12 @@ Now check that the `reportify` script is available by trying `reportify --help`.
 
 ## Usage
 
-TODO
+To see arguments, run `reportify --help`.
 
-To see other arguments, run `reportify --help`.
+Inside the repository's `examples` directory is an example notebook, `example.ipynb`, on which you can try reportify:
 
-Usage examples, TODO
+```bash
+reportify example.ipynb
+```
+
+this should output a file, `example.html`, in the current directory.
