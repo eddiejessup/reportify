@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
     name='reportify',
 
-    version='1.0.0',
+    version='1.1.0',
 
     description='Generate report-like documents from Jupyter notebooks',
     long_description=long_description,
@@ -81,9 +81,10 @@ setup(
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
-    package_data={
-        'assets': ['reportify.data'],
-    },
+    include_package_data=True,
+    # package_data={
+    #     'assets': ['reportify.data'],
+    # },
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:
