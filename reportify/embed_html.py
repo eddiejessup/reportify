@@ -3,7 +3,6 @@
 import base64
 import imghdr
 import os
-
 try:
     # Python 3.
     from urllib.request import urlopen
