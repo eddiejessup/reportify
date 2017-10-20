@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
     name='reportify',
 
-    version='1.2.0',
+    version='1.2.1',
 
     description='Generate report-like documents from Jupyter notebooks',
     long_description=long_description,
@@ -67,6 +67,8 @@ setup(
         'nbconvert',
         'nbformat',
         'traitlets',
+        'PyYAML',
+        'Jinja2',
     ],
 
     # Additional groups of dependencies (e.g. development
