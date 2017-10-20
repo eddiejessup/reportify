@@ -9,6 +9,7 @@ from nbconvert import HTMLExporter
 from jupyter_contrib_nbextensions.nbconvert_support import pre_pymarkdown
 
 from .embed_html import EmbedHTMLExporter
+from .header import HeaderPreprocessor
 
 THIS_FILE_DIR_PATH = dirname(abspath(__file__))
 CONFIG_FILE_PATH = join(THIS_FILE_DIR_PATH, 'data')
@@ -27,8 +28,9 @@ def run(in_file_path,
     if process_pymarkdown:
         print('Using PyMarkdown.')
         # Add preprocessor to do markdown-python rendering.
-        preprocessor = pre_pymarkdown.PyMarkdownPreprocessor
-        c.HTMLExporter.preprocessors.append(preprocessor)
+        c.HTMLExporter.preprocessors.append(
+            pre_pymarkdown.PyMarkdownPreprocessor
+        )
     else:
         print('Not using PyMarkdown.')
     if embed_images:
@@ -37,6 +39,7 @@ def run(in_file_path,
     else:
         print('Not embedding images.')
         Exporter = HTMLExporter
+    c.HTMLExporter.preprocessors.append(HeaderPreprocessor)
     # Template lives next to this build file, so add that to search path.
     c.HTMLExporter.template_path.append(config_dir_path)
     # Tell it to use our custom HTML template.

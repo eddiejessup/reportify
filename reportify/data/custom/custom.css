@@ -53,11 +53,30 @@ div.output_png img {
     font-family: "Proxima Nova", 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-#signature p {
-    font-size: 14px;
+#signature {
+    margin-top: 2em;
+}
+
+#signature ul {
+    list-style: none;
+    margin-left: auto;
+}
+
+#signature ul li {
+    margin-bottom: 0.2em;
+    margin-top: 0.2em;
+    font-size: 100%;
     font-family: "Proxima Nova", 'Helvetica Neue', Helvetica, Arial, sans-serif;   
 }
 
 .email {
     color: #003580;
+}
+
+.tag {
+    color: #003580;
+    font-weight: bold;
+}
+
+#headline {
 }
