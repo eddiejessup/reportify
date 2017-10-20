@@ -21,7 +21,7 @@
             <strong>Created:</strong> <span class="date">{{ created_at }}</span>
         </li>
         {% endif %}
-        {% if updated_at %}
+        {% if updated_at and updated_at != created_at %}
         <li>
             <strong>Updated:</strong> <span class="date">{{ updated_at }}</span>
         </li>
