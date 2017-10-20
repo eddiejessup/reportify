@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
     name='reportify',
 
-    version='1.1.0',
+    version='1.2.0',
 
     description='Generate report-like documents from Jupyter notebooks',
     long_description=long_description,
