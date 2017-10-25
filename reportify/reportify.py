@@ -17,6 +17,7 @@ DEFAULT_TEMPLATE = 'no_code'
 
 
 def run(in_file_path,
+        to_file_path, to_file_name,
         process_pymarkdown, embed_images,
         config_dir_path, template_file):
     print('Reading notebook at {}...'.format(in_file_path))
@@ -59,7 +60,16 @@ def run(in_file_path,
 
     # Make output file name.
     in_file_name = basename(in_file_path)
-    out_file_name = '{}{}html'.format(splitext(in_file_name)[0], extsep)
+
+    if to_file_name is not None:
+        out_file_name = to_file_name
+        if splitext(to_file_name) != '.html':
+            out_file_name += '.html'
+    else:
+        out_file_name = '{}{}html'.format(splitext(file_name)[0], extsep)
+    if to_file_path:
+        out_file_name = join(to_file_path, out_file_name)
+
     print("Writing exported notebook to '{}'...".format(out_file_name))
     with open(out_file_name, mode='w') as out_file:
         out_file.write(body)
@@ -78,9 +88,15 @@ def main():
     parser.add_argument('--no-embed-images', default=False,
                         action='store_true',
                         help='Disable HTML image embedding')
+    parser.add_argument('-to', '--to-path', default=None, dest='to_path',
+                        help='Path to output file.')
+    parser.add_argument('-fn', '--to-filename', default=None, dest='to_file',
+                        help='Output filename.(Default: notebook filename)')
     args = parser.parse_args()
     run(
         in_file_path=args.in_file_path,
+        to_file_path=args.to_path,
+        to_file_name=args.to_file,
         process_pymarkdown=not args.no_pymarkdown,
         embed_images=not args.no_embed_images,
         config_dir_path=CONFIG_FILE_PATH,
