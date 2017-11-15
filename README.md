@@ -22,7 +22,7 @@ Now check that the `reportify` script is available by trying `reportify --help`.
 
 To see arguments, run `reportify --help`.
 
-Inside the repository's `examples` directory is an example notebook, `example.ipynb`, on which you can try reportify:
+Inside the repository's `examples` directory are example notebooks on which you can try reportify:
 
 ```bash
 reportify example.ipynb
